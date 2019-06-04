@@ -38,7 +38,7 @@ client.on('message', async msg => {
             return msg.channel.send('Error: Couldn\'t join channel.');
 
         }
-        const dispatcher = connection.playOpusStream(ytdl(args[1]))
+        const dispatcher = connection.playStream(ytdl(args[1]))
             .on('end', () => {
                 console.log('Song Ended!');
                 voiceChannel.leave();
