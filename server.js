@@ -9,9 +9,9 @@ client.on('ready', () => {
     client.guilds.forEach((guild) => {
         console.log(" - " + guild.name);
 
-        guild.channels.forEach((channel) => {
-            console.log(` -- ${channel.name} (${channel.type}) - ${channel.id}`)
-        })
+        //guild.channels.forEach((channel) => {
+            //console.log(` -- ${channel.name} (${channel.type}) - ${channel.id}`)
+        //})
     })
 });
 
@@ -20,7 +20,21 @@ client.on('message', async msg => {
     if (!msg.content.startsWith(PREFIX)) return undefined;
     const args = msg.content.split(' ');
     let connection;
+
+    if (msg.content.startsWith(`${PREFIX}help`)) {
+       return msg.channel.send(`\nList of commands: \n!memes - Grabs a random zesty meme from the internet \n!song (Youtube link) - to play a song from Youtube in a voice channel`);
+
+    }
+
+    if (msg.content.startsWith(`${PREFIX}memes`)) {
+        return msg.channel.send(`You\'re a meme. hah. lmao. got em.`);
+
+    }
+
     if (msg.content.startsWith(`${PREFIX}play`)) {
+        if (!args[1]){
+            return msg.channel.send("Please specify a Youtube Link");
+        }
         const voiceChannel = msg.member.voiceChannel;
         if (!voiceChannel) return msg.channel.send('You need to be in a voice channel');
         const permissions = voiceChannel.permissionsFor(msg.client.user);
@@ -32,6 +46,7 @@ client.on('message', async msg => {
         }
 
         try {
+
             connection = await voiceChannel.join();
         } catch (error) {
             console.error(error);
@@ -48,6 +63,9 @@ client.on('message', async msg => {
 
         dispatcher.setVolumeLogarithmic(5 / 5);
     }
+
+
+
 });
 
 client.login(TOKEN);
