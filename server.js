@@ -4,6 +4,7 @@ const ytdl = require('ytdl-core');
 const {TOKEN, PREFIX} = require('./config');
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    client.user.setActivity('your mum');
     //Commands when bot first logs in
     console.log("Servers Connected to: ");
     client.guilds.forEach((guild) => {
@@ -22,7 +23,7 @@ client.on('message', async msg => {
     let connection;
 
     if (msg.content.startsWith(`${PREFIX}help`)) {
-       return msg.channel.send(`\nList of commands: \n!memes - Grabs a random zesty meme from the internet \n!song (Youtube link) - to play a song from Youtube in a voice channel`);
+       return msg.channel.send(`${msg.author} \nList of commands: \n!memes - Grabs a random zesty meme from the internet \n!play [Youtube] - to play a song from Youtube`);
 
     }
 
